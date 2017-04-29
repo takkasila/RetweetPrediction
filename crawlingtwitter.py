@@ -37,7 +37,8 @@ if __name__ == '__main__':
 	seed_user = api.get_user('waiiwall')
 
 	queue.append(seed_user.id)
-	while count < 10:
+	while count < 2000:
+		print("{}/2000".format(count))
 		seed = queue.pop(0)
 		try:
 			readTweet(seed)
