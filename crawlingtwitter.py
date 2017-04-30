@@ -4,6 +4,7 @@ from tweepy import OAuthHandler
 from tweepy import Stream
 from tweepy import API
 from tweepy import Cursor
+import datetime, time
 import json
 
 consumer_key = 'B2belwJ2uBpWB8LJYdxkeLHH4'
@@ -25,20 +26,23 @@ def readTweet(seed):
 	dic[seed] = {}
 	for tweet in tweets:
 		try:
+			day = (datetime.datetime.now()-tweet.retweeted_status.created_at).days
+			sec = (datetime.datetime.now()-tweet.retweeted_status.created_at).seconds
 			if tweet.retweeted_status.user.id in dic[seed]:
-				dic[seed][tweet.retweeted_status.user.id] += 1
+				dic[seed][tweet.retweeted_status.user.id][0] += 1
+				dic[seed][tweet.retweeted_status.user.id][1].append((day, sec))
 			else:
-				dic[seed][tweet.retweeted_status.user.id] = 1
+				dic[seed][tweet.retweeted_status.user.id] = (1, [(day, sec)])
 		except:
 			pass
 
 
 if __name__ == '__main__':
 	seed_user = api.get_user('waiiwall')
-
+	max_node = 2000
 	queue.append(seed_user.id)
-	while count < 2000:
-		print("{}/2000".format(count))
+	while count < max_node:
+		print("{}/{}".format(count, max_node))
 		seed = queue.pop(0)
 		try:
 			readTweet(seed)
