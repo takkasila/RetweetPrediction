@@ -1,7 +1,7 @@
 import json
 import pprint
 
-dataFile = open('retweet.json')
+dataFile = open('jsonFormatExample.json')
 
 data = json.load(dataFile)
 
