@@ -80,5 +80,5 @@ if __name__ == '__main__':
 		
 		search_count+=1
 		print("Total node: {}".format(total_node_count))
-	with open("retweet.json", "w") as fp:
+	with open("test_data.json", "w") as fp:
 		json.dump(dict, fp)
