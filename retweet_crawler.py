@@ -22,8 +22,9 @@ dict = collections.OrderedDict()
 api = API(auth)
 queue = []
 search_count = 0
-max_search_node = 2
+max_search_node = 2000
 total_node_count = 0 
+visited_node = []
 
 def readTweet(seed):
 	tweets = api.user_timeline(seed, count = 40, include_rts = True)
@@ -57,10 +58,16 @@ if __name__ == '__main__':
 	seed_user = api.get_user('waiiwall')
 	queue.append(seed_user.id)
 	while search_count < max_search_node:
+		print '--------------------------------'
 		print("{}/{}".format(search_count, max_search_node))
 		try:
 			print "Try reading."
 			seed = queue.pop(0)
+			while(seed in visited_node):
+				print "Already visited: ", seed
+				seed = queue.pop(0)
+			print "Visiting: ", seed
+			visited_node.append(seed)
 			total_node_count += 1
 			readTweet(seed)
 		except tweepy.TweepError:
