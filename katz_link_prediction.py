@@ -66,10 +66,10 @@ def scoreGraphToDict(graph):
             gDict[node]['edge'][edge] = {}
             gDict[node]['edge'][edge]['uid'] = edge
             gDict[node]['edge'][edge]['count'] = graph[node][edge]['count']
+            gDict[node]['edge'][edge]['score'] = graph[node][edge]['score']
             gDict[node]['edge'][edge]['time_stamp'] = {}
             for time_stamp_key in graph[node][edge]['time_stamp']:
                 gDict[node]['edge'][edge]['time_stamp'][time_stamp_key] = graph[node][edge]['time_stamp'][time_stamp_key]
-                gDict[node]['edge'][edge]['score'] = graph[node][edge]['score']
     return gDict
 
 if __name__ == '__main__':

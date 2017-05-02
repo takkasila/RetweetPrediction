@@ -8,7 +8,6 @@ import numpy
 import itertools
 from katz_link_prediction import scoreGraphToDict
 def simrank(G, r=0.8, max_iter=100, eps=1e-4):
-
     nodes = G.nodes()
     # print len(nodes)
     nodes_i = {k: v for(k, v) in [(nodes[i], i) for i in range(0, len(nodes))]}
@@ -17,7 +16,7 @@ def simrank(G, r=0.8, max_iter=100, eps=1e-4):
     sim = numpy.identity(len(nodes))
 
     for i in range(max_iter):
-        # print i
+        print ("{}/{} iters".format(i, max_iter))
         if numpy.allclose(sim, sim_prev, atol=eps):
             break
         sim_prev = numpy.copy(sim)
@@ -57,8 +56,12 @@ def addScoreMatToGraph(graph, scoreMat):
     return scoreGraph
 
 if __name__ == '__main__':
-    graph = jsonToGraph('./Dataset2/from-2017-4-8-to-2017-4-16.json')
+    sys.stdout.write("Input filename: ")
+    inputFileName = raw_input()
+    sys.stdout.write("Output filename: ")
+    outputFileName = raw_input()
+    graph = jsonToGraph(inputFileName)
     scoreMat = simrank(graph)
     graph = addScoreMatToGraph(graph, scoreMat)
-    with open("from-2017-4-8-to-2017-4-16_sim.json", "w") as fp:
+    with open(outputFileName, "w") as fp:
         json.dump(scoreGraphToDict(graph), fp)
