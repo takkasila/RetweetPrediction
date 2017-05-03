@@ -44,6 +44,7 @@ def checkPerformance(old,predict,new,coreList):
 	totalPredict = 0
 #	print "totalEdge:",totalEdge
 	for score in reversed(predict["sortKey"]):
+		print score
 		for predictEdge in predict["sortPredict"][score]:
 #			print predictNode
 			totalPredict += 1
@@ -61,7 +62,7 @@ def checkPerformance(old,predict,new,coreList):
 	print "correctPredict:",correctPredict
 	print "totalPredict:",totalPredict
 	print "totalEdge:",totalEdge
-	return correctPredict/totalPredict
+	return 1.0*correctPredict/totalPredict
 #	return checkSimilarity(predictOnly, newOnly)
 
 def jsonLoader(fileName):
@@ -185,4 +186,4 @@ newGraph = jsonLoader(newGraphFile)["graph"]
 #printOne(newGraph)
 core = findCore(oldGraph,newGraph,oldTotalEdge)
 sortPredict = sortPredict(predictGraph,core["coreList"])
-print "algoProb:",checkPerformance(core["oldCore"],sortPredict,core["newCore"],core["coreList"])
+print "algoProb: "+str(checkPerformance(core["oldCore"],sortPredict,core["newCore"],core["coreList"]))
